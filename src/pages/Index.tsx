@@ -65,7 +65,7 @@ export default function Index() {
                 Hand-packed in Sri Lanka · Available in Finland
               </p>
               <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-                Premium Sri Lankan Spice Wooden Box
+                Premiumm Sri Lankan Spice Wooden Box
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-md">
                 A curated collection of the finest whole spices, elegantly presented in a handcrafted wooden tray. Perfect for cooking enthusiasts and gifting.
