@@ -15,7 +15,7 @@ export default {
     extend: {
       fontFamily: {
         heading: ['Cormorant Garamond', 'serif'],
-        body: ['DM Sans', 'sans-serif'],
+        body: ['Lato', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -63,10 +63,14 @@ export default {
         },
         spice: {
           cinnamon: "hsl(var(--spice-cinnamon))",
-          turmeric: "hsl(var(--spice-turmeric))",
-          cardamom: "hsl(var(--spice-cardamom))",
+          forest: "hsl(var(--spice-forest))",
+          gold: "hsl(var(--spice-gold))",
           cream: "hsl(var(--spice-cream))",
-          wood: "hsl(var(--spice-wood))",
+          charcoal: "hsl(var(--spice-charcoal))",
+        },
+        hero: {
+          gold: "#c4a35a",
+          dark: "#14100c",
         },
       },
       borderRadius: {
