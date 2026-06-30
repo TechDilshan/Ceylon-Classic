@@ -9,7 +9,8 @@ export default function ContactCTA() {
     : "/contact";
 
   return (
-    <section className="container mx-auto px-4 lg:px-8 py-16 md:py-24">
+    <section className="page-section">
+      <div className="page-container">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -19,18 +20,18 @@ export default function ContactCTA() {
         <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">Ready to Order?</h2>
         <p className="text-muted-foreground mb-2">Get in touch via WhatsApp or our contact form.</p>
         <p className="text-sm text-muted-foreground mb-8">We reply within 24–48 hours.</p>
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <a
             href={whatsappHref}
             target={WHATSAPP_NUMBER ? "_blank" : undefined}
             rel={WHATSAPP_NUMBER ? "noopener noreferrer" : undefined}
-            className="inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-md font-semibold hover:opacity-90 transition-opacity"
+            className="inline-flex items-center justify-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-md font-semibold hover:opacity-90 transition-opacity w-full sm:w-auto"
           >
             <MessageCircle className="w-5 h-5" /> WhatsApp Us
           </a>
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-md font-semibold hover:opacity-90 transition-opacity"
+            className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-md font-semibold hover:opacity-90 transition-opacity w-full sm:w-auto"
           >
             <Mail className="w-5 h-5" /> Contact Form
           </Link>
@@ -42,6 +43,7 @@ export default function ContactCTA() {
           </a>
         </p>
       </motion.div>
+      </div>
     </section>
   );
 }

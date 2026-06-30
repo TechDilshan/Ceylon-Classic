@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CONTACT_EMAIL, SITE_NAME, SOCIAL_LINKS } from "@/lib/site";
 import { products } from "@/data/products";
@@ -20,24 +20,28 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const isActive = (to: string) =>
     to === "/" ? location.pathname === "/" : location.pathname.startsWith(to);
 
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
+
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-background overflow-x-hidden">
       <header
         className={`sticky top-0 z-50 transition-colors ${
           isHome
-            ? "bg-hero-dark/40 backdrop-blur-sm border-b border-white/10 text-white"
-            : "bg-background/90 backdrop-blur-md border-b border-border"
+            ? "bg-hero-dark/50 backdrop-blur-sm border-b border-white/10 text-white"
+            : "bg-background/95 backdrop-blur-md border-b border-border"
         }`}
       >
-        <div className="container mx-auto flex items-center justify-between h-16 px-4 lg:px-8">
+        <div className="page-container flex items-center justify-between h-14 sm:h-16">
           <Link
             to="/"
-            className={`font-heading text-xl md:text-2xl font-bold tracking-widest ${isHome ? "text-white" : "text-foreground"}`}
+            className={`font-heading text-lg sm:text-xl md:text-2xl font-bold tracking-[0.12em] sm:tracking-widest truncate max-w-[55vw] sm:max-w-none ${isHome ? "text-white" : "text-foreground"}`}
           >
             {SITE_NAME}
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
@@ -100,12 +104,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </AnimatePresence>
       </header>
 
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 fab-offset">{children}</main>
 
       <footer className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
+        <div className="page-container py-10 sm:py-12">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
+            <div className="col-span-2 sm:col-span-2 lg:col-span-1">
               <h3 className="font-heading text-xl font-bold tracking-widest mb-3">{SITE_NAME}</h3>
               <p className="text-sm opacity-80 leading-relaxed">
                 Premium Sri Lankan spices — from our farms to your kitchen.
@@ -133,7 +137,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
             <div>
               <h4 className="font-heading text-lg font-semibold mb-3">Contact</h4>
-              <a href={`mailto:${CONTACT_EMAIL}`} className="text-sm opacity-80 hover:opacity-100 transition-opacity block mb-3">
+              <a href={`mailto:${CONTACT_EMAIL}`} className="text-sm opacity-80 hover:opacity-100 transition-opacity block mb-3 break-all">
                 {CONTACT_EMAIL}
               </a>
               <div className="flex flex-col gap-2 text-sm opacity-80">

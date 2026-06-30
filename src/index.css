@@ -8,8 +8,8 @@
   :root {
     --font-heading: 'Cormorant Garamond', serif;
     --font-body: 'Lato', sans-serif;
+    --hero-dark: #14100c;
 
-    /* Ivory background, charcoal text */
     --background: 40 33% 97%;
     --foreground: 220 10% 18%;
 
@@ -19,7 +19,6 @@
     --popover: 40 33% 97%;
     --popover-foreground: 220 10% 18%;
 
-    /* Dark brown primary */
     --primary: 22 45% 22%;
     --primary-foreground: 40 33% 97%;
 
@@ -29,7 +28,6 @@
     --muted: 40 20% 93%;
     --muted-foreground: 220 8% 42%;
 
-    /* Gold accent */
     --accent: 42 65% 48%;
     --accent-foreground: 22 45% 12%;
 
@@ -42,43 +40,102 @@
 
     --radius: 0.5rem;
 
-    /* Brand palette */
-    --brand-brown: 22 45% 22%;
-    --brand-green: 140 28% 28%;
-    --brand-ivory: 40 33% 97%;
-    --brand-gold: 42 65% 48%;
-    --brand-charcoal: 220 10% 18%;
-
     --spice-cinnamon: 22 45% 22%;
     --spice-forest: 140 28% 28%;
     --spice-gold: 42 65% 48%;
     --spice-cream: 40 33% 97%;
     --spice-charcoal: 220 10% 18%;
 
-    --gradient-hero: linear-gradient(180deg, hsl(22 45% 18% / 0.55) 0%, hsl(22 45% 12% / 0.75) 100%);
     --gradient-warm: linear-gradient(135deg, hsl(22 45% 22%) 0%, hsl(140 28% 28%) 100%);
     --shadow-soft: 0 4px 20px -4px hsl(220 10% 18% / 0.08);
     --shadow-elevated: 0 12px 40px -8px hsl(220 10% 18% / 0.14);
   }
-}
 
-@layer base {
-  * {
-    @apply border-border;
+  html {
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-x-hidden;
     font-family: var(--font-body);
+    min-height: 100dvh;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@layer components {
+  /* Hero image fade — mobile: bottom-heavy scrim */
+  .hero-bg-image {
+    @apply absolute inset-0 w-full h-full object-cover;
+    object-position: center 35%;
+  }
+
+  @media (min-width: 768px) {
+    .hero-bg-image {
+      object-position: 60% center;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-bg-image {
+      @apply inset-y-0 right-0 left-auto w-[72%] xl:w-[68%];
+      object-position: 65% center;
+      mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 22%, rgba(0, 0, 0, 0.85) 48%, black 62%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 22%, rgba(0, 0, 0, 0.85) 48%, black 62%);
+    }
+  }
+
+  .hero-overlay-mobile {
+    @apply absolute inset-0 lg:hidden;
+    background: linear-gradient(
+      to bottom,
+      rgba(20, 16, 12, 0.35) 0%,
+      rgba(20, 16, 12, 0.75) 45%,
+      var(--hero-dark) 72%
+    );
+  }
+
+  .hero-overlay-desktop {
+    @apply absolute inset-0 hidden lg:block;
+    background: linear-gradient(
+      to right,
+      var(--hero-dark) 0%,
+      var(--hero-dark) 28%,
+      rgba(20, 16, 12, 0.92) 38%,
+      rgba(20, 16, 12, 0.55) 50%,
+      rgba(20, 16, 12, 0.15) 62%,
+      transparent 78%
+    );
+  }
+
+  .page-section {
+    @apply py-12 sm:py-16 md:py-20 lg:py-24;
+  }
+
+  .page-container {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .fab-offset {
+    @apply pb-20 sm:pb-24 lg:pb-0;
   }
 }

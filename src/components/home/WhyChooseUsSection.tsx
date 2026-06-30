@@ -12,8 +12,8 @@ const reasons = [
 
 export default function WhyChooseUsSection() {
   return (
-    <section className="bg-secondary/50 border-y border-border py-16 md:py-24">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="bg-secondary/50 border-y border-border page-section">
+      <div className="page-container">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

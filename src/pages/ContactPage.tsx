@@ -84,7 +84,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 lg:px-8 py-12 md:py-20">
+    <div className="page-container py-10 sm:py-12 md:py-20">
       <SEO
         title="Contact"
         description="Contact CEYLONCLASSIC for orders, wholesale inquiries, and questions. WhatsApp, phone, email — we reply within 24–48 hours."
@@ -97,7 +97,7 @@ export default function ContactPage() {
         <p className="text-sm text-muted-foreground">We reply within 24–48 hours.</p>
       </motion.div>
 
-      <div className="grid lg:grid-cols-3 gap-10 max-w-5xl mx-auto mb-12">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 max-w-5xl mx-auto mb-10 sm:mb-12">
         <div className="space-y-4">
           <h2 className="font-heading text-lg font-semibold text-foreground">Contact Details</h2>
           <a href={`mailto:${CONTACT_EMAIL}`} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-primary transition-colors">

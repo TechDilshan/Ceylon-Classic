@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Star, Truck, ArrowLeft, MessageCircle, Check } from "lucide-react";
 import { products, getProductBySlug } from "@/data/products";
 import SEO from "@/components/SEO";
+import ProductImage from "@/components/ProductImage";
 import { formatPrice, whatsAppOrderLink, WHATSAPP_NUMBER } from "@/lib/site";
 
 export default function ProductPage() {
@@ -33,7 +34,7 @@ export default function ProductPage() {
       : 5;
 
   return (
-    <div className="container mx-auto px-4 lg:px-8 py-8 md:py-12">
+    <div className="page-container py-6 sm:py-8 md:py-12">
       <SEO
         title={product.name}
         description={product.shortDescription}
@@ -46,10 +47,10 @@ export default function ProductPage() {
         <ArrowLeft className="w-4 h-4" /> Back to Shop
       </Link>
 
-      <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 mb-16">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-14 mb-12 md:mb-16">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <div className="aspect-square rounded-lg overflow-hidden bg-secondary mb-3">
-            <img src={product.images[selectedImage]} alt={product.name} className="w-full h-full object-cover" />
+          <div className="aspect-square max-w-lg mx-auto lg:max-w-none rounded-lg overflow-hidden bg-secondary mb-3">
+            <ProductImage src={product.images[selectedImage]} alt={product.name} />
           </div>
           {product.images.length > 1 && (
             <div className="flex gap-2">
@@ -83,8 +84,8 @@ export default function ProductPage() {
             </span>
           </div>
 
-          <h1 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-3">{product.name}</h1>
-          <p className="text-lg text-muted-foreground mb-6">{product.shortDescription}</p>
+          <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">{product.name}</h1>
+          <p className="text-base sm:text-lg text-muted-foreground mb-6">{product.shortDescription}</p>
 
           <div className="mb-6">
             <p className="text-sm font-medium text-foreground mb-2">Select Size</p>
@@ -93,7 +94,7 @@ export default function ProductPage() {
                 <button
                   key={v.weight}
                   onClick={() => setSelectedVariant(i)}
-                  className={`px-4 py-2 rounded-md text-sm font-medium border transition-colors ${
+                  className={`px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium border transition-colors ${
                     selectedVariant === i
                       ? "bg-primary text-primary-foreground border-primary"
                       : "bg-background text-foreground border-border hover:border-primary"
@@ -105,29 +106,29 @@ export default function ProductPage() {
             </div>
           </div>
 
-          <div className="font-heading text-3xl font-bold text-foreground mb-6">{formatPrice(variant.price)}</div>
+          <div className="font-heading text-2xl sm:text-3xl font-bold text-foreground mb-6">{formatPrice(variant.price)}</div>
 
-          <div className="flex flex-col sm:flex-row gap-3 mb-8">
+          <div className="flex flex-col gap-3 mb-8">
             {WHATSAPP_NUMBER ? (
               <a
                 href={whatsAppOrderLink(product.name, variant.weight)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 inline-flex items-center justify-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-md font-semibold hover:opacity-90 transition-opacity"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#25D366] text-white px-6 py-3.5 rounded-md font-semibold hover:opacity-90 transition-opacity text-sm sm:text-base"
               >
                 <MessageCircle className="w-4 h-4" /> Order via WhatsApp
               </a>
             ) : (
               <Link
                 to="/contact"
-                className="flex-1 inline-flex items-center justify-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-md font-semibold hover:opacity-90 transition-opacity"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#25D366] text-white px-6 py-3.5 rounded-md font-semibold hover:opacity-90 transition-opacity text-sm sm:text-base"
               >
                 <MessageCircle className="w-4 h-4" /> Order via WhatsApp
               </Link>
             )}
             <Link
               to="/contact"
-              className="flex-1 inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-md font-semibold hover:opacity-90 transition-opacity"
+              className="w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3.5 rounded-md font-semibold hover:opacity-90 transition-opacity text-sm sm:text-base"
             >
               Contact Us
             </Link>
@@ -209,7 +210,7 @@ export default function ProductPage() {
                 to={`/shop/${p.slug}`}
                 className="flex gap-4 bg-card border border-border rounded-lg p-4 hover:shadow-[var(--shadow-soft)] transition-shadow"
               >
-                <img src={p.image} alt={p.name} className="w-20 h-20 rounded-md object-cover bg-secondary" />
+                <img src={p.image} alt={p.name} className="w-16 h-16 sm:w-20 sm:h-20 rounded-md object-contain bg-secondary p-1 shrink-0" />
                 <div>
                   <h3 className="font-heading text-lg font-semibold text-foreground">{p.name}</h3>
                   <p className="text-sm text-muted-foreground">from {formatPrice(p.variants[0].price)}</p>

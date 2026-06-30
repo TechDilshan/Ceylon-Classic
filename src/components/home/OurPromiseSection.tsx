@@ -3,8 +3,8 @@ import { ShieldCheck } from "lucide-react";
 
 export default function OurPromiseSection() {
   return (
-    <section className="relative overflow-hidden py-16 md:py-24" style={{ background: "var(--gradient-warm)" }}>
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="relative overflow-hidden page-section" style={{ background: "var(--gradient-warm)" }}>
+      <div className="page-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
