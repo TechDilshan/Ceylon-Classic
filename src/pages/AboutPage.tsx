@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import plantation from "@/assets/sri-lanka-plantation.jpg";
-import heroImage from "@/assets/hero-spice-box.jpg";
+import heroImage from "@/assets/img3.jpg";
 import SEO from "@/components/SEO";
 import { Leaf, Handshake, Sprout, ShieldCheck } from "lucide-react";
 
