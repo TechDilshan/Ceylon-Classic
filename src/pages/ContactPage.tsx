@@ -6,6 +6,7 @@ import {
   CONTACT_EMAIL,
   CONTACT_PHONE,
   WEB3FORMS_ACCESS_KEY,
+  FORM_RECIPIENT_EMAIL,
   WHATSAPP_NUMBER,
   SOCIAL_LINKS,
   MAP_EMBED_URL,
@@ -45,7 +46,7 @@ export default function ContactPage() {
     e.preventDefault();
     setErrorMessage("");
 
-    if (!WEB3FORMS_ACCESS_KEY) {
+    if (!WEB3FORMS_ACCESS_KEY && !FORM_RECIPIENT_EMAIL) {
       setStatus("error");
       setErrorMessage("Contact form is not active yet. Please reach us via WhatsApp or try again later.");
       return;
@@ -54,31 +55,54 @@ export default function ContactPage() {
     setStatus("submitting");
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_ACCESS_KEY,
-          subject: `CEYLONCLASSIC — New message from ${name}`,
-          from_name: name,
-          name,
-          email,
-          replyto: email,
-          message,
-          botcheck: false,
-        }),
-      });
+      let success = false;
+      let errorMsg = "Something went wrong. Please try again or contact us via WhatsApp.";
 
-      const data = await response.json();
+      if (WEB3FORMS_ACCESS_KEY) {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_ACCESS_KEY,
+            subject: `CEYLONCLASSIC — New message from ${name}`,
+            from_name: name,
+            name,
+            email,
+            replyto: email,
+            message,
+            botcheck: false,
+          }),
+        });
+        const data = await response.json();
+        success = response.ok && data.success;
+        if (!success) errorMsg = data.message || errorMsg;
+      } else {
+        const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(FORM_RECIPIENT_EMAIL)}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            name,
+            email,
+            message,
+            _subject: `CEYLONCLASSIC — New message from ${name}`,
+            _replyto: email,
+            _captcha: "false",
+            _template: "table",
+          }),
+        });
+        const data = await response.json();
+        success = response.ok && data.success === "true";
+        if (!success) errorMsg = data.message || errorMsg;
+      }
 
-      if (response.ok && data.success) {
+      if (success) {
         setStatus("success");
         setName("");
         setEmail("");
         setMessage("");
       } else {
         setStatus("error");
-        setErrorMessage(data.message || "Something went wrong. Please try again or contact us via WhatsApp.");
+        setErrorMessage(errorMsg);
       }
     } catch {
       setStatus("error");

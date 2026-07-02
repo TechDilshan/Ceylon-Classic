@@ -7,6 +7,8 @@ export const CONTACT_PHONE = import.meta.env.VITE_CONTACT_PHONE || "";
 export const SITE_URL = import.meta.env.VITE_SITE_URL || "https://ceylonclassic.com";
 export const DEFAULT_OG_IMAGE = "/og-image.jpg";
 export const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "";
+/** Private inbox for contact form delivery — not shown on the website */
+export const FORM_RECIPIENT_EMAIL = import.meta.env.VITE_FORM_RECIPIENT_EMAIL || "";
 
 export const SOCIAL_LINKS = {
   facebook: import.meta.env.VITE_FACEBOOK_URL || "",
