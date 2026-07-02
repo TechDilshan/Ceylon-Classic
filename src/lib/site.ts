@@ -25,7 +25,7 @@ function normalizeWhatsAppNumber(raw: string): string {
   return digits;
 }
 
-export const WHATSAPP_NUMBER = normalizeWhatsAppNumber(import.meta.env.VITE_WHATSAPP_NUMBER || "");
+export const WHATSAPP_NUMBER = normalizeWhatsAppNumber(import.meta.env.VITE_WHATSAPP_NUMBER || "94784939427");
 
 export function formatPrice(lkr: number) {
   return `Rs. ${lkr.toLocaleString("en-LK")}`;
