@@ -47,7 +47,7 @@ export default function ContactPage() {
 
     if (!WEB3FORMS_ACCESS_KEY) {
       setStatus("error");
-      setErrorMessage(`Form is not configured yet. Please email us directly at ${CONTACT_EMAIL}.`);
+      setErrorMessage("Contact form is not active yet. Please reach us via WhatsApp or try again later.");
       return;
     }
 
@@ -59,10 +59,13 @@ export default function ContactPage() {
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `CEYLONCLASSIC — New message from ${name}`,
+          from_name: name,
           name,
           email,
+          replyto: email,
           message,
-          subject: `Inquiry from ${name}`,
+          botcheck: false,
         }),
       });
 
@@ -75,11 +78,11 @@ export default function ContactPage() {
         setMessage("");
       } else {
         setStatus("error");
-        setErrorMessage(data.message || "Something went wrong. Please try again or email us directly.");
+        setErrorMessage(data.message || "Something went wrong. Please try again or contact us via WhatsApp.");
       }
     } catch {
       setStatus("error");
-      setErrorMessage(`Could not send your message. Please email us at ${CONTACT_EMAIL}.`);
+      setErrorMessage("Could not send your message. Please try again or contact us via WhatsApp.");
     }
   };
 
@@ -135,6 +138,8 @@ export default function ContactPage() {
             </div>
           ) : (
             <form className="space-y-4" onSubmit={handleSubmit}>
+              {/* Honeypot — hidden from users, blocks bots */}
+              <input type="checkbox" name="botcheck" className="hidden" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="contact-name" className="block text-sm font-medium text-foreground mb-1.5">
